@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Odaberi kubikažu motora i gorivo";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">@ViewBag.Title</h2>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("ChooseInsurance", "Home", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.Label("Odaberi kubikažu motora i gorivo", new { @class = "form-label" })
+
+                    <select id="SelectedEngine" name="SelectedEngine" class="form-control" required>
+                        <option value="">Odaberi kubikažu motora i gorivo...</option>
+                        @foreach (var engine in ViewBag.Engines)
+                        {
+                            <option value="@engine.CubicCapacity @engine.FuelType">@engine.CubicCapacity L - @engine.FuelType</option>
+                        }
+                    </select>
+                    @Html.ValidationMessage("SelectedEngine", "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success">Sljedeće</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnNextToInsurance').click(function () {
+            var selectedEngine = $('#SelectedEngine').val();
+            if (selectedEngine !== "") {
+                window.location.href = '/Home/ChooseInsurance?selectedEngine=' + selectedEngine;
+            }
+        });
+    });
+</script>

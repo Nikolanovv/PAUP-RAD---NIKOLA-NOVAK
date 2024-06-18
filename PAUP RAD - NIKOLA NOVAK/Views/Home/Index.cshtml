@@ -1,0 +1,40 @@
+﻿@using PAUP_RAD___NIKOLA_NOVAK
+@model PAUP_RAD___NIKOLA_NOVAK.Models.Marka
+@{
+    ViewBag.Title = "Odaberi marku automobila";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">@ViewBag.Title</h2>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("ChooseModel", "Home", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.Label("Odaberi automobil", new { @class = "form-label" })
+                    @Html.DropDownList("SelectedMarka", new SelectList(ViewBag.Marke), "Odaberi automobil...", new { @class = "form-control", required = "true" })
+                    @Html.ValidationMessage("SelectedMarka", "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success">Sljedeće</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#btnNext').click(function () {
+            var selectedMarka = $('#SelectedMarka').val();
+            if (selectedMarka !== "") {
+                window.location.href = '/Home/ChooseModel?selectedMarka=' + selectedMarka;
+            }
+        });
+    });
+</script>

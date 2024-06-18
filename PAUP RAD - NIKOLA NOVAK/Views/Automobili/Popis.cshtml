@@ -1,0 +1,37 @@
+﻿@using PAUP_RAD___NIKOLA_NOVAK.Models
+@model  List<Automobili>
+
+@{
+    ViewBag.Title = "Popis automobila";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Popis</h2>
+
+<table border="1">
+
+    <tr>
+        <th>AutomobilID</th>
+        <th>Naziv</th>
+
+    </tr>
+    @foreach ( var automobili in Model)
+            {
+                <tr>
+
+                    <td>@automobili.AutomobilID</td>
+                    <td>@automobili.Naziv</td>
+                    <th>Ažuriranje</th>
+
+                    <td>@Html.ActionLink("Info", "Detalji", new { AutomobilID = automobili.AutomobilID })</td>
+                    <td>@Html.ActionLink("Ažuriraj" , "Ažuriraj" , new { id = automobili.AutomobilID })</td>
+                </tr>
+               
+
+     }
+
+    
+
+</table>
+
+//4. prezentacjia 13 slide

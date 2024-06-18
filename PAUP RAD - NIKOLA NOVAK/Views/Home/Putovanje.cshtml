@@ -1,0 +1,90 @@
+﻿@model PAUP_RAD___NIKOLA_NOVAK.Models.Putovanje
+
+@{
+    ViewBag.Title = "Putovanje";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="card-body">
+            @if (Model != null && Model.FuelNeeded > 0)
+            {
+                <p>Za putovanje od @Model.Distance km, vaš automobil će potrošiti @Model.FuelNeeded litara goriva.</p>
+            }
+            else
+            {
+                <p>Unesite udaljenost koju ćete proći:</p>
+                <form action="@Url.Action("Putovanje", "Home")" method="post">
+                    <div class="form-group">
+                        @Html.Label("Udaljenost (km)", new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Distance, new { @class = "form-control", type = "number", step = "0.01", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Distance, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Izračunaj</button>
+                    </div>
+                </form>
+            }
+
+            <hr />
+
+            <h3>Kalkulator</h3>
+            <div class="form-group">
+                <input type="number" id="num1" placeholder="Unesite prvi broj" class="form-control mb-2" />
+                <input type="number" id="num2" placeholder="Unesite drugi broj" class="form-control mb-2" />
+                <div class="btn-group mb-2" role="group">
+                    <button onclick="calculate('+')" class="btn btn-primary">+</button>
+                    <button onclick="calculate('-')" class="btn btn-primary">-</button>
+                    <button onclick="calculate('*')" class="btn btn-primary">*</button>
+                    <button onclick="calculate('/')" class="btn btn-primary">/</button>
+                </div>
+                <p>Rezultat: <span id="result"></span></p>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col">
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Povratak na početnu stranicu</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculate(operator) {
+        var num1 = parseFloat(document.getElementById('num1').value);
+        var num2 = parseFloat(document.getElementById('num2').value);
+        var result;
+
+        if (isNaN(num1) || isNaN(num2)) {
+            alert('Molimo unesite oba broja.');
+            return;
+        }
+
+        switch (operator) {
+            case '+':
+                result = num1 + num2;
+                break;
+            case '-':
+                result = num1 - num2;
+                break;
+            case '*':
+                result = num1 * num2;
+                break;
+            case '/':
+                if (num2 === 0) {
+                    alert('Dijeljenje s nulom nije dozvoljeno.');
+                    return;
+                }
+                result = num1 / num2;
+                break;
+            default:
+                return;
+        }
+
+        document.getElementById('result').innerText = result;
+    }
+</script>

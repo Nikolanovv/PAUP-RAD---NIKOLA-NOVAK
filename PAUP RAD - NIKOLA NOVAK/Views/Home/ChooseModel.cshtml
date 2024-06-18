@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Odaberi model automobila";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">@ViewBag.Title</h2>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("ChooseEngine", "Home", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.Label("Odaberi model automobila", new { @class = "form-label" })
+                    @Html.DropDownList("SelectedModel", new SelectList(ViewBag.Modeli, "ModelID", "Naziv"), "Odaberi model automobila...", new { @class = "form-control", required = "true" })
+                    @Html.ValidationMessage("SelectedModel", "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success">Sljedeće</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#SelectedModel').change(function () {
+            var selectedModel = $(this).val();
+            $('#SelectedModelHidden').val(selectedModel);
+        });
+
+        $('#btnNext').click(function () {
+            var selectedModelId = $('#SelectedModel').val();
+            if (selectedModelId !== "") {
+                $('#SelectedModelHidden').val(selectedModelId);
+            }
+        });
+    });
+</script>

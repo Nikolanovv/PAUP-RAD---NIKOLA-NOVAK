@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Odaberi osiguravajuću kuću";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">@ViewBag.Title</h2>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("ChooseInsurancePost", "Home", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.Label("Odaberi osiguranje", new { @class = "form-label" })
+
+                    <select id="SelectedInsurance" name="SelectedInsurance" class="form-control" required>
+                        <option value="">Odaberi osiguranje...</option>
+                        @foreach (var osiguranje in ViewBag.Osiguranja)
+                        {
+                            <option value="@osiguranje.OsiguranjeID">@osiguranje.Naziv</option>
+                        }
+                    </select>
+                    @Html.ValidationMessage("SelectedInsurance", "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success">Sljedeće</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#btnNextToInsurance').click(function () {
+            // Preuzmi odabrano osiguranje
+            var selectedInsurance = $('#SelectedInsurance').val();
+
+            // Provjeri da li je odabrano osiguranje
+            if (selectedInsurance !== "") {
+                // Ako je odabrano osiguranje, preusmjeri na akciju ChooseInsurance
+                window.location.href = '/Home/Ispis?selectedOsiguranje=' + selectedInsurance;
+            }
+        });
+    });
+</script>
