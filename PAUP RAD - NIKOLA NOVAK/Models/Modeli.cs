@@ -12,10 +12,8 @@ namespace PAUP_RAD___NIKOLA_NOVAK.Models
     public class Automobil
     {
         [Key]
-        public int AutomobilID { get; set; } // Promijenjeno ime svojstva na AutomobilId
-
-        public int ModelID { get; set; } // Dodano svojstvo za povezivanje s Modelom
-
+        public int AutomobilID { get; set; } 
+        public int ModelID { get; set; } 
         public string Naziv { get; set; }
     }
 

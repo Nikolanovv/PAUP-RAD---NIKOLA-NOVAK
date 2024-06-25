@@ -36,12 +36,9 @@
 <script>
     $(document).ready(function () {
         $('#btnNextToInsurance').click(function () {
-            // Preuzmi odabrano osiguranje
             var selectedInsurance = $('#SelectedInsurance').val();
 
-            // Provjeri da li je odabrano osiguranje
             if (selectedInsurance !== "") {
-                // Ako je odabrano osiguranje, preusmjeri na akciju ChooseInsurance
                 window.location.href = '/Home/Ispis?selectedOsiguranje=' + selectedInsurance;
             }
         });

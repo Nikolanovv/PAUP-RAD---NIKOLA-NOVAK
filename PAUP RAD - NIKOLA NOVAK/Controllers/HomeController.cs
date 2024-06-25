@@ -175,8 +175,24 @@ namespace PAUP_RAD___NIKOLA_NOVAK.Controllers
 
             var totalCost = registrationCost + insurancePrice + maintenanceCost;
 
+            var povijest = new PovijestTroskova
+            {
+                Marka = selectedMarka,
+                Model = selectedModel,
+                KubikazaIMotor = selectedEngine,
+                Osiguranje = selectedInsurance,
+                FuelConsumption = fuelConsumption,
+                RegistrationCost = registrationCost,
+                InsurancePrice = insurancePrice,
+                MaintenanceCost = maintenanceCost,
+                TotalCost = totalCost,
+                DateCreated = DateTime.Now
+            };
+
+            _context.PovijestTroskova.Add(povijest);
+            _context.SaveChanges();
+
             ViewBag.FuelConsumption = fuelConsumption;
-            ViewBag.FuelConsumption1000km = fuelConsumption * 10;
             ViewBag.RegistrationCost = registrationCost;
             ViewBag.InsurancePrice = insurancePrice;
             ViewBag.MaintenanceCost = maintenanceCost;
@@ -184,6 +200,8 @@ namespace PAUP_RAD___NIKOLA_NOVAK.Controllers
 
             return View();
         }
+
+
 
         [HttpGet]
         public ActionResult Putovanje()
@@ -370,6 +388,33 @@ namespace PAUP_RAD___NIKOLA_NOVAK.Controllers
                 pdfDoc.Close();
                 return File(stream.ToArray(), "application/pdf", "Troskovi.pdf");
             }
+
         }
+
+
+        [HttpGet]
+        public ActionResult Povijest()
+        {
+            var povijest = _context.PovijestTroskova.ToList();
+
+            var povijestViewModel = povijest.Select(p => new PovijestTroskova
+            {
+                Id = p.Id,
+                Marka = p.Marka,
+                Model = _context.Modeli.FirstOrDefault(m => m.ModelID.ToString() == p.Model)?.Naziv,
+                KubikazaIMotor = p.KubikazaIMotor,
+                Osiguranje = _context.Osiguranje.FirstOrDefault(o => o.OsiguranjeID.ToString() == p.Osiguranje)?.Naziv,
+                FuelConsumption = p.FuelConsumption,
+                RegistrationCost = p.RegistrationCost,
+                InsurancePrice = p.InsurancePrice,
+                MaintenanceCost = p.MaintenanceCost,
+                TotalCost = p.TotalCost,
+                DateCreated = p.DateCreated
+            }).ToList();
+
+            return View(povijestViewModel);
+        }
+
+
     }
 }

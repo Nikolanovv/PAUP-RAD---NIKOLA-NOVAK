@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PAUP_RAD___NIKOLA_NOVAK.Models.PovijestTroskova>
+
+@{
+    ViewBag.Title = "Povijest troškova";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Kubikaža i motor</th>
+            <th>Osiguranje</th>
+            <th>Potrošnja goriva (100km)</th>
+            <th>Cijena registracije</th>
+            <th>Cijena osiguranja</th>
+            <th>Godišnji trošak servisa</th>
+            <th>Ukupni trošak</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DateCreated</td>
+                <td>@item.Marka</td>
+                <td>@item.Model</td>
+                <td>@item.KubikazaIMotor</td>
+                <td>@item.Osiguranje</td>
+                <td>@item.FuelConsumption</td>
+                <td>@item.RegistrationCost</td>
+                <td>@item.InsurancePrice</td>
+                <td>@item.MaintenanceCost</td>
+                <td>@item.TotalCost</td>
+            </tr>
+        }
+    </tbody>
+</table>

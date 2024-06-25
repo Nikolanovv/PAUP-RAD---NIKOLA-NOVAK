@@ -13,10 +13,37 @@
                 40 000, Čakovec<br />
                 <abbr title="Phone">Telefon:</abbr> +385/ 95 872 88 99
             </address>
-            <address>
-                <strong>Support:</strong>
-                <a href="mailto:nikola.nova67@gmail.com?subject=Kontakt%20Podrška&body=Poštovani%20Nikola,">Nikola Novak - Direktor</a>
-            </address>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Ime i prezime</label>
+                    <input type="text" id="name" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="subject">Naslov poruke</label>
+                    <input type="text" id="subject" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="message">Opišite problem</label>
+                    <textarea id="message" class="form-control" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" onclick="sendEmail()">Pošalji</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+<script>
+    function sendEmail() {
+        var name = document.getElementById('name').value;
+        var subject = document.getElementById('subject').value;
+        var message = document.getElementById('message').value;
+
+        var body = `Poštovanje,Moje ime je ${name} i pišem vam da bih prijavio/prijavila sljedeći problem. ${message}`;
+
+        var mailtoLink = `mailto:nikola.nova67@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        window.location.href = mailtoLink;
+    }
+</script>
